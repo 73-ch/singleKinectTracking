@@ -1,0 +1,37 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "3EB5CE33D0868C6B7EB7695B8073D6DBF5346F3D",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "3EB5CE33D0868C6B7EB7695B8073D6DBF5346F3D" : 0,
+    "37526DA425E5430474A14FBFA1BC4525160B5FC1" : 0,
+    "88B9FC151DC341353CD8953242CE29BE15BF959C" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "3D2D20F3-3BAB-41C5-A776-D60F76E02D28",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "3EB5CE33D0868C6B7EB7695B8073D6DBF5346F3D" : "myApps\/",
+    "37526DA425E5430474A14FBFA1BC4525160B5FC1" : "..\/addons\/ofxCv",
+    "88B9FC151DC341353CD8953242CE29BE15BF959C" : "..\/addons\/ofxMultiKinectV2"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "singleKinectTracking",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "singleKinectTracking\/singleKinectTracking.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/kylemcdonald\/ofxCv.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "37526DA425E5430474A14FBFA1BC4525160B5FC1"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/nami634\/openframeworks-0.9.0-.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "3EB5CE33D0868C6B7EB7695B8073D6DBF5346F3D"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/hanasaan\/ofxMultiKinectV2.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "88B9FC151DC341353CD8953242CE29BE15BF959C"
+    }
+  ]
+}

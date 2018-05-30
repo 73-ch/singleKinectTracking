@@ -1,0 +1,5 @@
+ofxCv
+ofxMultiKinectV2
+ofxOpenCv
+ofxOsc
+ofxTurboJpeg

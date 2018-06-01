@@ -4,6 +4,7 @@
 void ofApp::setup(){
     ofSetVerticalSync(true);
     ofSetFrameRate(60);
+    
     kinect.open(true, true, 0, 2);
     kinect.start();
 
@@ -37,34 +38,57 @@ void ofApp::setup(){
     receiver.setup(PORT);
     
     // ofxcv setup
-    contourFinder2.setMinAreaRadius(1);
-    contourFinder2.setMaxAreaRadius(100);
-    contourFinder2.setThreshold(15);
-    contourFinder2.getTracker().setPersistence(15);
-    contourFinder2.getTracker().setMaximumDistance(32);
+    contourFinder.setMinAreaRadius(1);
+    contourFinder.setMaxAreaRadius(100);
+    contourFinder.setThreshold(15);
+    contourFinder.getTracker().setPersistence(15);
+    contourFinder.getTracker().setMaximumDistance(32);
+    
     
     // irshader
     irShader.setupShaderFromSource(GL_FRAGMENT_SHADER, irFragmentShader);
     irShader.linkProgram();
     
-    depth_fbo.allocate(512,424, GL_RGB);
-    constant = 65550;
+    depth_fbo.allocate(kinect_width,kinect_height, GL_RGB);
+    constant = 65550.0;
+    threshold = 128;
 }
 
 void ofApp::update(){
     kinect.update();
     if(kinect.isFrameNew()){
         texture.loadData(kinect.getIrPixelsRef());
-        cout << texture.getHeight() << "," << texture.getWidth() << endl;
-        if (texture.allocated()) {
+        if (texture.isAllocated()) {
             depth_fbo.begin();
             
             irShader.begin();
-            
+            cout << constant << endl;
             irShader.setUniform1f("constant", constant);
-            texture.draw(0,0,);
+            texture.draw(0,0,kinect_width, kinect_height);
+            irShader.end();
+            depth_fbo.end();
             
-            contourFinder2.findContours(gIrImage);
+            ofPixels d_pix;
+            
+            depth_fbo.readToPixels(d_pix);
+            
+            cIrImage.setFromPixels(d_pix, kinect_width, kinect_height);
+            gIrImage = cIrImage;
+            gIrImage.threshold(threshold);
+            
+            contourFinder.findContours(gIrImage);
+            
+            float sum_x, sum_y;
+            
+            for (int i = 0; i < contourFinder.size(); i++) {
+                ofPoint center = ofxCv::toOf(contourFinder.getCenter(i));
+                sum_x += center.x;
+                sum_y += center.y;
+//                cout << center.x  <<  "," << center.y << endl;
+            }
+            
+            ofVec3f kinect_tracking_point = ofVec3f(sum_y/kinect_width, sum_x/kinect_height, 1.);
+            human_pos = getWorldPosition(kinect_tracking_point, plane, kinect_cam.getGlobalPosition(), kinect_cam.getModelViewProjectionMatrix());
         }
     }
     
@@ -78,24 +102,31 @@ void ofApp::update(){
         } else if (m.getAddress() == "/kinect_cam/look_at") {
             kinect_look_at = ofVec3f(m.getArgAsFloat(0), m.getArgAsFloat(1), m.getArgAsFloat(2));
             kinect_cam.lookAt(ofVec3f(m.getArgAsFloat(0), m.getArgAsFloat(1), m.getArgAsFloat(2)));
+        } else if (m.getAddress() == "/threshold") {
+            threshold = m.getArgAsInt(0);
+        } else if (m.getAddress() == "/constant") {
+            constant = m.getArgAsFloat(0);
         }
     }
+    
+    float time = ofGetElapsedTimef();
+//    human_pos = getWorldrPosition(ofVec3f(cos(time), sin(time), 1.0), plane, kinect_cam.getGlobalPosition(), kinect_cam.getModelViewProjectionMatrix());
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    if(texture.isAllocated()){
-        irShader.begin();
-        texture.draw(0, 0, 600, 400);
-        irShader.end();
-    }
+//    if(texture.isAllocated()){
+//        irShader.begin();
+//        texture.draw(0, 0, 600, 400);
+//        irShader.end();
+//    }
     ofClear(0);
     
     // view from kinect
     kinect_view.begin();
     kinect_cam.begin();
     ofClear(0);
-    
+    ofDrawSphere(human_pos, 50);
     ofDrawAxis(5);
     plane.draw(OF_MESH_WIREFRAME);
     
@@ -118,7 +149,7 @@ void ofApp::draw(){
     
     ofSetColor(255, 0, 0);
 //    cout << test_vec << endl;
-    ofDrawSphere(test_vec, 50);
+    ofDrawSphere(human_pos, 50);
     
     ofSetColor(255);
     
@@ -128,11 +159,17 @@ void ofApp::draw(){
     
     
     // kinect view draw
-    kinect_view.draw(ofGetWidth(), 0, -204, 168);
+    kinect_view.draw(ofGetWidth()-kinect_width, 0, kinect_width, kinect_height);
+//    ofSetColor
+    depth_fbo.draw(ofGetWidth()-kinect_width*2, 0, kinect_width, kinect_height );
     
     
     ofDrawBitmapStringHighlight(ofToString(ofGetFrameRate()), 10, 20);
     ofDrawBitmapStringHighlight("Device Count : " + ofToString(ofxMultiKinectV2::getDeviceCount()), 10, 40);
+}
+
+void ofApp::drawKinectWindow(ofEventArgs &args) {
+    
 }
 
 ofVec3f ofApp::getWorldPosition(ofVec3f g_pos, ofPlanePrimitive target, ofVec3f eye_pos, ofMatrix4x4 cam_mvp_matrix) {

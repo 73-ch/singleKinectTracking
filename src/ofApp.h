@@ -16,6 +16,7 @@ class ofApp : public ofBaseApp{
 		void setup();
 		void update();
 		void draw();
+        void drawKinectWindow(ofEventArgs & args);
     
         ofVec3f getWorldPosition(ofVec3f g_pos, ofPlanePrimitive target, ofVec3f eye_pos, ofMatrix4x4 cam_mvp_matrix);
 
@@ -37,7 +38,8 @@ class ofApp : public ofBaseApp{
     ofVboMesh mesh;
     ofShader irShader;
     ofFbo depth_fbo;
-    float constant, threshold;
+    float constant;
+    int threshold;
     int kinect_width = 512, kinect_height = 424;
     
     ofPlanePrimitive plane;
@@ -50,6 +52,8 @@ class ofApp : public ofBaseApp{
     ofVec3f test_vec;
     ofMatrix4x4 test_mat;
     
+    ofVec3f human_pos;
+    
     ofVec3f kinect_look_at;
     
     
@@ -61,11 +65,11 @@ class ofApp : public ofBaseApp{
 static string irFragmentShader =
 STRINGIFY(
           uniform sampler2DRect tex;
+          uniform float constant;
           void main()
           {
-              vec4 col = texture2DRect(tex, gl_TexCoord[0].xy);
-              float value = col.r / 65535.0;
-              //　float value = col.r / 4500.0;　irのデフォルト値は大きすぎるから調整必要！！ (4500がベスト）
-              gl_FragColor = vec4(vec3(value), 1.0);
+          vec4 col = texture2DRect(tex, gl_TexCoord[0].xy);
+          float value = col.r / constant;
+          gl_FragColor = vec4(vec3(value), 1.0);
           }
           );

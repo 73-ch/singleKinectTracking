@@ -1,22 +1,24 @@
 {
-  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "3EB5CE33D0868C6B7EB7695B8073D6DBF5346F3D",
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "DEAB6460FC504EB3915FEA1730AB4CD7398AE6BE",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "88B9FC151DC341353CD8953242CE29BE15BF959C" : 0,
     "3EB5CE33D0868C6B7EB7695B8073D6DBF5346F3D" : 0,
     "37526DA425E5430474A14FBFA1BC4525160B5FC1" : 0,
-    "88B9FC151DC341353CD8953242CE29BE15BF959C" : 0
+    "DEAB6460FC504EB3915FEA1730AB4CD7398AE6BE" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "3D2D20F3-3BAB-41C5-A776-D60F76E02D28",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "3EB5CE33D0868C6B7EB7695B8073D6DBF5346F3D" : "myApps\/",
-    "37526DA425E5430474A14FBFA1BC4525160B5FC1" : "..\/addons\/ofxCv",
-    "88B9FC151DC341353CD8953242CE29BE15BF959C" : "..\/addons\/ofxMultiKinectV2"
+    "88B9FC151DC341353CD8953242CE29BE15BF959C" : "..\/..\/addons\/ofxMultiKinectV2",
+    "3EB5CE33D0868C6B7EB7695B8073D6DBF5346F3D" : "",
+    "37526DA425E5430474A14FBFA1BC4525160B5FC1" : "..\/..\/addons\/ofxCv",
+    "DEAB6460FC504EB3915FEA1730AB4CD7398AE6BE" : "singleKinectTracking\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "singleKinectTracking",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
-  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "singleKinectTracking\/singleKinectTracking.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "singleKinectTracking.xcodeproj",
   "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/kylemcdonald\/ofxCv.git",
@@ -32,6 +34,11 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/hanasaan\/ofxMultiKinectV2.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "88B9FC151DC341353CD8953242CE29BE15BF959C"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:nami634\/singleKinectTracking.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "DEAB6460FC504EB3915FEA1730AB4CD7398AE6BE"
     }
   ]
 }

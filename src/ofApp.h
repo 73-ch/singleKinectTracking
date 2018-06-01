@@ -3,6 +3,8 @@
 #include "ofMain.h"
 #include "ofxMultiKinectV2.h"
 #include "ofxOsc.h"
+#include "ofxOpenCv.h"
+#include "ofxCv.h"
 
 #define STRINGIFY(x) #x
 
@@ -34,6 +36,9 @@ class ofApp : public ofBaseApp{
     ofEasyCam ecam;
     ofVboMesh mesh;
     ofShader irShader;
+    ofFbo depth_fbo;
+    float constant, threshold;
+    int kinect_width = 512, kinect_height = 424;
     
     ofPlanePrimitive plane;
     
@@ -41,6 +46,16 @@ class ofApp : public ofBaseApp{
     ofFbo kinect_view;
     
     ofxOscReceiver receiver;
+    
+    ofVec3f test_vec;
+    ofMatrix4x4 test_mat;
+    
+    ofVec3f kinect_look_at;
+    
+    
+    ofxCvColorImage cIrImage;
+    ofxCvGrayscaleImage gIrImage;
+    ofxCv::ContourFinder contourFinder;
 };
 
 static string irFragmentShader =

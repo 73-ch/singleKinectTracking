@@ -22,7 +22,7 @@ void ofApp::setup(){
     // plane setting
     plane.set(600, 600, 12,12);
     plane.rotate(90, ofVec3f(1,0,0));
-    plane.setPosition(0, 180, 0);
+    plane.setPosition(0, human_height, 0);
     
     // kinectの位置にカメラを作成
     kinect_cam.setFov(60);
@@ -72,7 +72,7 @@ void setupKinectImage() {
 }
 
 void ofApp::update(){
-     
+    
     kinect.update();
     if(kinect.isFrameNew()){
         kinect_color.setFromPixels(kinect.getColorPixelsRef());
@@ -138,6 +138,9 @@ void ofApp::update(){
             constant = m.getArgAsFloat(0);
         } else if (m.getAddress() == "/adjust_plane") {
             adjust_plane = !adjust_plane;
+        } else if (m.getAddress() == "/human_height") {
+            human_height = m.getArgAsFloat(0);
+            plane.setPosition(0, human_height, 0);
         }
     }
     
@@ -156,6 +159,12 @@ void ofApp::draw(){
     ofDrawAxis(5);
     ofSetColor(255);
     plane.draw(OF_MESH_WIREFRAME);
+    
+    ofPushMatrix();
+    ofTranslate(0,-human_height, 0);
+    ofSetColor(255, 255, 0, 255);
+    plane.draw(OF_MESH_WIREFRAME);
+    ofPopMatrix();
     
     ofSetColor(255, 0, 0);
     ofDrawSphere(human_pos, 50);
@@ -207,7 +216,7 @@ void ofApp::drawKinectViewWindow(ofEventArgs &args) {
     plane.draw(OF_MESH_WIREFRAME);
     
     ofPushMatrix();
-    ofTranslate(0,-180, 0);
+    ofTranslate(0,-human_height, 0);
     ofSetColor(255, 255, 0, 255);
     plane.draw(OF_MESH_WIREFRAME);
     ofPopMatrix();

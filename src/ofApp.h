@@ -46,6 +46,8 @@ class ofApp : public ofBaseApp{
     int threshold;
     int kinect_width = 512, kinect_height = 424;
     
+    float human_height = 180;
+    
     ofPlanePrimitive plane;
     
     ofCamera kinect_cam;

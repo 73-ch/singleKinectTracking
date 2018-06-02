@@ -234,8 +234,8 @@ void ofApp::drawKinectViewWindow(ofEventArgs &args) {
     if (adjust_plane) {
         cout << "read" << endl;
         ofSetColor(255, 255, 255, 80);
-//        kinect_window.draw(0, 0);
-        kinect_color.draw(0,0, kinect_width, kinect_height);
+        kinect_window.draw(0, 0);
+//        kinect_color.draw(0,0, kinect_width, kinect_height);
     }
 }
 

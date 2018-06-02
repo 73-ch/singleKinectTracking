@@ -20,7 +20,7 @@ void ofApp::setup(){
     irShader.linkProgram();
     
     // plane setting
-    plane.set(600, 600, 12,12);
+    plane.set(plane_size, plane_size, 12,12);
     plane.rotate(90, ofVec3f(1,0,0));
     plane.setPosition(0, human_height, 0);
     
@@ -112,7 +112,7 @@ void ofApp::update(){
             ofVec3f kinect_tracking_point = ofVec3f(kinect_window_pos.x / kinect_width * 2. - 1., (1. - kinect_window_pos.y/kinect_height) * 2. -1., 1.);
             human_pos = getWorldPosition(kinect_tracking_point, plane, kinect_cam.getGlobalPosition(), kinect_cam.getModelViewProjectionMatrix());
             
-            if (abs(human_pos.x) <= 300 && abs(human_pos.z) <= 300) {
+            if (abs(human_pos.x) <= plane_size*.5 && abs(human_pos.z) <= plane_size*.5) {
                 ofxOscMessage m;
                 m.setAddress("/human_pos");
                 m.addFloatArg(human_pos.x/100.);
@@ -141,6 +141,9 @@ void ofApp::update(){
         } else if (m.getAddress() == "/human_height") {
             human_height = m.getArgAsFloat(0);
             plane.setPosition(0, human_height, 0);
+        } else if (m.getAddress() == "/plane_size") {
+            plane_size = m.getArgAsFloat(0);
+            plane.set(plane_size, plane_size, 12, 12);
         }
     }
     
@@ -166,8 +169,9 @@ void ofApp::draw(){
     plane.draw(OF_MESH_WIREFRAME);
     ofPopMatrix();
     
-    ofSetColor(255, 0, 0);
-    ofDrawSphere(human_pos, 50);
+    ofSetColor(255, 0, 0, 200);
+    ofDrawCircle(human_pos, 10);
+    ofDrawCircle(human_pos.x, 0, human_pos.z, 10);
     
     ofSetColor(255);
     
@@ -209,8 +213,9 @@ void ofApp::drawKinectViewWindow(ofEventArgs &args) {
     kinect_cam.begin();
     
     ofClear(0);
-    ofSetColor(255);
-    ofDrawSphere(human_pos, 50);
+    ofSetColor(255, 0, 0, 200);
+    ofDrawSphere(human_pos, 10);
+    ofDrawSphere(human_pos.x, 0, human_pos.z, 10);
     ofDrawAxis(5);
     ofSetColor(255, 255, 255, 150);
     plane.draw(OF_MESH_WIREFRAME);

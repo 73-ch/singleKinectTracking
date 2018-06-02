@@ -48,6 +48,8 @@ class ofApp : public ofBaseApp{
     
     float human_height = 180;
     
+    float plane_size = 600.0;
+    
     ofPlanePrimitive plane;
     
     ofCamera kinect_cam;

@@ -15,10 +15,12 @@ int main( ){
     
     settings.width = 512;
     settings.height = 424;
+    settings.setPosition(ofVec2f(960,0));
     settings.shareContextWith = mainWindow;
     shared_ptr<ofAppBaseWindow> kinectWindow = ofCreateWindow(settings);
     kinectWindow->setVerticalSync(false);
     
+    settings.setPosition(ofVec2f(960,424));
     shared_ptr<ofAppBaseWindow> kinectViewWindow = ofCreateWindow(settings);
     kinectViewWindow->setVerticalSync(false);
     

@@ -38,6 +38,7 @@ void ofApp::setup(){
     
     // ose setup
     receiver.setup(PORT);
+    sender.setup("localhost", 8000);
     
     // ofxcv setup
     contourFinder.setMinAreaRadius(1);
@@ -71,7 +72,7 @@ void setupKinectImage() {
 }
 
 void ofApp::update(){
-    
+     
     kinect.update();
     if(kinect.isFrameNew()){
         kinect_color.setFromPixels(kinect.getColorPixelsRef());
@@ -110,6 +111,14 @@ void ofApp::update(){
             
             ofVec3f kinect_tracking_point = ofVec3f(kinect_window_pos.x / kinect_width * 2. - 1., (1. - kinect_window_pos.y/kinect_height) * 2. -1., 1.);
             human_pos = getWorldPosition(kinect_tracking_point, plane, kinect_cam.getGlobalPosition(), kinect_cam.getModelViewProjectionMatrix());
+            
+            if (abs(human_pos.x) <= 300 && abs(human_pos.z) <= 300) {
+                ofxOscMessage m;
+                m.setAddress("/human_pos");
+                m.addFloatArg(human_pos.x/100.);
+                m.addFloatArg(human_pos.z/100.);
+                sender.sendMessage(m);
+            }
         }
     }
     

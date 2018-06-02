@@ -54,6 +54,7 @@ class ofApp : public ofBaseApp{
     ofFbo kinect_window;
     
     ofxOscReceiver receiver;
+    ofxOscSender sender;
     
     ofVec3f test_vec;
     ofMatrix4x4 test_mat;

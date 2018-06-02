@@ -108,7 +108,7 @@ void ofApp::update(){
             
             kinect_window_pos = ofVec2f(sum_x / size, sum_y / size);
             
-            ofVec3f kinect_tracking_point = ofVec3f(kinect_window_pos.x / kinect_width * 2., (1. - kinect_window_pos.y/kinect_height), 1.);
+            ofVec3f kinect_tracking_point = ofVec3f(kinect_window_pos.x / kinect_width * 2. - 1., (1. - kinect_window_pos.y/kinect_height) * 2. -1., 1.);
             human_pos = getWorldPosition(kinect_tracking_point, plane, kinect_cam.getGlobalPosition(), kinect_cam.getModelViewProjectionMatrix());
         }
     }

@@ -14,9 +14,12 @@ class ofApp : public ofBaseApp{
 
 	public:
 		void setup();
+    void setupKinectView();
+    void setupKinectImage();
 		void update();
 		void draw();
         void drawKinectWindow(ofEventArgs & args);
+        void drawKinectViewWindow(ofEventArgs & args);
     
         ofVec3f getWorldPosition(ofVec3f g_pos, ofPlanePrimitive target, ofVec3f eye_pos, ofMatrix4x4 cam_mvp_matrix);
 
@@ -34,6 +37,7 @@ class ofApp : public ofBaseApp{
 		
     ofxMultiKinectV2 kinect;
     ofTexture texture;
+    ofImage kinect_color;
     ofEasyCam ecam;
     ofVboMesh mesh;
     ofShader irShader;
@@ -47,6 +51,8 @@ class ofApp : public ofBaseApp{
     ofCamera kinect_cam;
     ofFbo kinect_view;
     
+    ofFbo kinect_window;
+    
     ofxOscReceiver receiver;
     
     ofVec3f test_vec;
@@ -55,6 +61,10 @@ class ofApp : public ofBaseApp{
     ofVec3f human_pos;
     
     ofVec3f kinect_look_at;
+    
+    ofVec2f kinect_window_pos;
+
+    bool adjust_plane;
     
     
     ofxCvColorImage cIrImage;
